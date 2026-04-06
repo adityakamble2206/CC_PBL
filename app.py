@@ -58,6 +58,16 @@ def quiz():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    print(f"[INFO] Flask server starting on http://127.0.0.1:{port}")
-    # Disable reloader for stability on Windows
-    app.run(debug=True, host='0.0.0.0', port=port, use_reloader=False)
+    is_production = os.environ.get("RENDER") is not None
+    debug_mode = not is_production
+    
+    print(f"[INFO] Flask server starting on http://0.0.0.0:{port}")
+    print(f"[INFO] Environment: {'Production (Render)' if is_production else 'Development'}")
+    print(f"[INFO] Debug mode: {debug_mode}")
+    
+    # Use Gunicorn in production (started by Procfile), 
+    # only run development server locally
+    if not is_production:
+        app.run(debug=debug_mode, host='0.0.0.0', port=port, use_reloader=False)
+    else:
+        app.run(debug=False, host='0.0.0.0', port=port)

@@ -9,3 +9,5 @@ pdfplumber
 python-docx
 google-generativeai
 werkzeug
+gunicorn
+
