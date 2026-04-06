@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI Resume Analyzer - Login to your account and start analyzing your resume with AI-powered suggestions." />
+  <title>Login — AI Resume Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body class="auth-page">
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <div class="auth-container animate-in">
+
+    <!-- Logo -->
+    <div class="auth-logo">
+      <div class="logo-title">Resume Analyzer</div>
+      <div class="logo-sub">AI-Powered Career Intelligence</div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="glass-card auth-card">
+      <h2>Welcome back</h2>
+      <p class="auth-desc">Sign in to continue to your dashboard</p>
+
+      <!-- Error Message -->
+      <div class="error-msg" id="login-error">Invalid credentials.</div>
+
+      <!-- Login Form -->
+      <form id="login-form" novalidate>
+
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" name="email" placeholder="you@example.com" required
+            autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" placeholder="Enter your password" required
+            autocomplete="current-password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">
+          Sign In
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="auth-footer">
+      Don't have an account?
+      <a href="{{ url_for('register') }}">Create one</a>
+    </div>
+
+    <!-- Theme toggle (subtle, corner) -->
+    <div style="text-align:center; margin-top:16px;">
+      <button class="theme-toggle" id="theme-toggle">Light Mode</button>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

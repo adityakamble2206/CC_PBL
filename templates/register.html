@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI Resume Analyzer - Create your account and start your AI-powered career journey." />
+  <title>Sign Up — AI Resume Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body class="auth-page">
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <div class="auth-container animate-in">
+
+    <!-- Logo -->
+    <div class="auth-logo">
+      <div class="logo-title">Resume Analyzer</div>
+      <div class="logo-sub">AI-Powered Career Intelligence</div>
+    </div>
+
+    <!-- Signup Card -->
+    <div class="glass-card auth-card">
+      <h2>Create an account</h2>
+      <p class="auth-desc">Start your AI-powered resume journey today</p>
+
+      <!-- Error Message -->
+      <div class="error-msg" id="signup-error">Something went wrong.</div>
+
+      <!-- Signup Form -->
+      <form id="signup-form" novalidate>
+
+        <div class="form-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" name="name" placeholder="Jane Doe" required autocomplete="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email">Email Address</label>
+          <input type="email" id="signup-email" name="email" placeholder="you@example.com" required
+            autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="password" placeholder="Min. 6 characters" required
+            autocomplete="new-password" />
+        </div>
+
+        <div class="form-group">
+          <label for="signup-confirm">Confirm Password</label>
+          <input type="password" id="signup-confirm" name="confirm" placeholder="Re-enter your password" required
+            autocomplete="new-password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">
+          Create Account
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="auth-footer">
+      Already have an account?
+      <a href="{{ url_for('login') }}">Go to Login</a>
+    </div>
+
+    <!-- Theme toggle -->
+    <div style="text-align:center; margin-top:16px;">
+      <button class="theme-toggle" id="theme-toggle">Light Mode</button>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

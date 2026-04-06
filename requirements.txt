@@ -1,0 +1,11 @@
+flask
+flask-cors
+pymongo
+bcrypt
+pyjwt
+python-dotenv
+nltk
+pdfplumber
+python-docx
+google-generativeai
+werkzeug

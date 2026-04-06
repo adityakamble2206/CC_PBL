@@ -1,0 +1,12 @@
+2026-03-24 20:17:52,763 - ResumeAnalyzer - ERROR - OpenAI API Key missing.
+2026-03-24 20:19:53,597 - ResumeAnalyzer - ERROR - OpenAI API Key missing.
+2026-03-24 20:27:36,266 - ResumeAnalyzer - INFO - Sending request to Gemini for role: Frontend Developer
+2026-03-24 20:27:36,505 - ResumeAnalyzer - ERROR - Gemini AI Engine Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-24 20:28:17,090 - ResumeAnalyzer - INFO - Sending request to Gemini for role: Frontend Developer
+2026-03-24 20:28:17,564 - ResumeAnalyzer - ERROR - Gemini AI Engine Error: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-24 20:28:44,302 - ResumeAnalyzer - INFO - Sending request to Gemini for role: Frontend Developer
+2026-03-24 20:28:44,810 - ResumeAnalyzer - ERROR - Gemini AI Engine Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-24 20:29:05,175 - ResumeAnalyzer - INFO - Sending request to Gemini for role: Frontend Developer
+2026-03-24 20:29:05,550 - ResumeAnalyzer - ERROR - Gemini AI Engine Error: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-24 20:30:15,135 - ResumeAnalyzer - INFO - Sending request to Gemini for role: Frontend Developer
+2026-03-24 20:33:39,041 - ResumeAnalyzer - INFO - Sending request to Gemini for role: Frontend Developer

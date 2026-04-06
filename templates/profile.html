@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI Resume Analyzer - View and edit your professional profile." />
+  <title>Profile — AI Resume Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body class="has-sidebar" id="profile-view-root">
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <!-- Toast -->
+  <div id="toast-container"></div>
+  <!-- Mobile sidebar backdrop -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-title">Resume Analyzer</div>
+      <div class="logo-sub">AI Career Intelligence</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('dashboard') }}" class="sidebar-link">
+        <span class="s-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+            <path
+              d="M3 4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4zm8-8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V4zm0 8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+          </svg>
+        </span>
+        Dashboard
+      </a>
+      <a href="{{ url_for('profile') }}" class="sidebar-link active">
+        <span class="s-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+          </svg>
+        </span>
+        Profile
+      </a>
+      <a href="{{ url_for('quiz') }}" class="sidebar-link">
+        <span class="s-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+              clip-rule="evenodd" />
+          </svg>
+        </span>
+        Interview Quiz
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebar-avatar">U</div>
+      <div>
+        <div class="sidebar-user-name" id="sidebar-user-name">User</div>
+        <div class="sidebar-user-role">Member</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="sidebar-main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              fill="none" />
+          </svg>
+        </button>
+        <span class="topbar-title">My Profile</span>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="theme-toggle">Light Mode</button>
+        <button class="btn btn-danger btn-sm" id="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <!-- ===================== PROFILE VIEW CONTENT ===================== -->
+    <main class="profile-view-page">
+
+      <!-- ---- VIEW MODE ---- -->
+      <div id="view-mode">
+
+        <!-- Hero card -->
+        <div class="glass-card profile-hero-card">
+          <div class="profile-hero-avatar" id="view-avatar">U</div>
+          <div class="profile-hero-info">
+            <h2 id="view-name">Loading...</h2>
+            <span class="profile-email-badge" id="view-email">—</span>
+            <p id="view-degree">—</p>
+            <p id="view-age-contact">—</p>
+            <p id="view-address">—</p>
+            <div class="profile-hero-actions">
+              <button class="btn btn-primary btn-sm" id="edit-btn">Edit Profile</button>
+              <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-sm">Go to Dashboard</a>
+              <a href="{{ url_for('quiz') }}" class="btn btn-secondary btn-sm">Interview Quiz</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info grid -->
+        <div class="profile-info-grid">
+
+          <div class="info-card">
+            <div class="info-card-label">Age</div>
+            <div class="info-card-value" id="view-age">—</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-label">Contact Number</div>
+            <div class="info-card-value" id="view-contact">—</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-label">Address</div>
+            <div class="info-card-value" id="view-address-card">—</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-label">Email</div>
+            <div class="info-card-value" id="view-email-card">—</div>
+          </div>
+
+          <!-- Education card spans full width -->
+          <div class="info-card education-card">
+            <div class="info-card-label">Education</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:8px; flex-wrap:wrap;">
+              <div>
+                <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">School</div>
+                <div class="info-card-value" id="view-school">—</div>
+              </div>
+              <div>
+                <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">College / University</div>
+                <div class="info-card-value" id="view-college">—</div>
+              </div>
+              <div>
+                <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">Degree / Occupation</div>
+                <div class="info-card-value" id="view-degree-card">—</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- End view-mode -->
+
+      <!-- ---- EDIT MODE ---- -->
+      <div class="edit-profile-section glass-card" id="edit-mode" style="padding:32px;">
+
+        <h3 style="margin-bottom:24px;">Edit Profile</h3>
+
+        <!-- Avatar upload -->
+        <div class="avatar-upload" style="margin-bottom:28px;">
+          <div class="avatar-preview">
+            <span id="edit-avatar-placeholder" style="font-size:2rem; color:var(--text-muted);">&#128100;</span>
+            <img id="edit-avatar-img" src="" alt="Profile photo"
+              style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+          </div>
+          <label for="edit-avatar-input" class="btn btn-secondary btn-sm" data-hover>Change Photo</label>
+          <input type="file" id="edit-avatar-input" accept="image/*" style="display:none;" />
+        </div>
+
+        <div class="profile-section-title">Personal Information</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-name">Full Name</label>
+            <input type="text" id="edit-name" placeholder="Jane Doe" />
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Email Address</label>
+            <input type="email" id="edit-email" placeholder="" readonly />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-age">Age</label>
+            <input type="number" id="edit-age" placeholder="25" min="16" max="100" />
+          </div>
+          <div class="form-group">
+            <label for="edit-contact">Contact Number</label>
+            <input type="tel" id="edit-contact" placeholder="+1 (555) 000-0000" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-address">Address</label>
+          <input type="text" id="edit-address" placeholder="City, State, Country" />
+        </div>
+
+        <div class="profile-section-title">Education Details</div>
+
+        <div class="form-group">
+          <label for="edit-school">School Name</label>
+          <input type="text" id="edit-school" placeholder="Springfield High School" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-college">College / University</label>
+            <input type="text" id="edit-college" placeholder="State University" />
+          </div>
+          <div class="form-group">
+            <label for="edit-degree">Degree / Occupation</label>
+            <input type="text" id="edit-degree" placeholder="B.Sc. Computer Science" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+          <button class="btn btn-secondary" id="cancel-edit-btn">Cancel</button>
+        </div>
+
+      </div>
+      <!-- End edit-mode -->
+
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

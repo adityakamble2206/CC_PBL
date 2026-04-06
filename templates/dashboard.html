@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI Resume Analyzer Dashboard — Analyze your resume, bridge skill gaps, and simulate interviews with AI." />
+  <title>Dashboard — AI Resume Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body class="has-sidebar" id="dashboard-root">
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <!-- Toast -->
+  <div id="toast-container"></div>
+  <!-- Mobile sidebar backdrop -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-title">Resume Analyzer</div>
+      <div class="logo-sub">AI Career Intelligence</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('dashboard') }}" class="sidebar-link active">
+        <span class="s-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+            <path
+              d="M3 4a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4zm8-8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V4zm0 8a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+          </svg>
+        </span>
+        Dashboard
+      </a>
+      <a href="{{ url_for('profile') }}" class="sidebar-link">
+        <span class="s-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+          </svg>
+        </span>
+        Profile
+      </a>
+      <a href="{{ url_for('quiz') }}" class="sidebar-link">
+        <span class="s-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+              clip-rule="evenodd" />
+          </svg>
+        </span>
+        Interview Quiz
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebar-avatar">U</div>
+      <div>
+        <div class="sidebar-user-name" id="sidebar-user-name">User</div>
+        <div class="sidebar-user-role">Member</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="sidebar-main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              fill="none" />
+          </svg>
+        </button>
+        <span class="topbar-title">Resume Dashboard</span>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="theme-toggle">Light Mode</button>
+        <button class="btn btn-danger btn-sm" id="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <!-- ===================== DASHBOARD CONTENT ===================== -->
+    <main class="dashboard-main">
+
+      <!-- Hero -->
+      <section class="dashboard-hero animate-in">
+        <h1>Analyze Your Resume</h1>
+        <p>Paste or upload your resume, select a target role, and get AI-powered feedback instantly.</p>
+      </section>
+
+      <!-- Profile Summary Card -->
+      <div class="glass-card profile-summary animate-in" style="margin-bottom:28px;">
+        <div class="profile-summary-avatar" id="summary-avatar">U</div>
+        <div class="profile-summary-info">
+          <h3 id="summary-name">User</h3>
+          <p id="summary-email">—</p>
+          <p id="summary-degree">—</p>
+        </div>
+        <a href="{{ url_for('profile') }}" class="btn btn-secondary btn-sm" style="margin-left:auto;">Edit Profile</a>
+      </div>
+
+      <!-- ===================== RESUME INPUT ===================== -->
+      <section class="glass-card section-card animate-in">
+        <div class="input-section">
+
+          <h3 style="margin-bottom:18px;">Resume Input</h3>
+
+          <!-- Tab switcher -->
+          <div class="tab-bar">
+            <button class="tab-btn active" id="tab-paste">Paste Text</button>
+            <button class="tab-btn" id="tab-upload">Upload File</button>
+          </div>
+
+          <!-- Paste Pane -->
+          <div id="pane-paste">
+            <div class="form-group">
+              <label for="resume-text">Paste your resume content below</label>
+              <textarea id="resume-text" rows="10"
+                placeholder="Paste your entire resume here — including your name, summary, experience, education, and skills..."></textarea>
+            </div>
+          </div>
+
+          <!-- Upload Pane -->
+          <div id="pane-upload" style="display:none;">
+            <div class="upload-zone" id="upload-zone">
+              <span class="upload-icon">&#128196;</span>
+              <p>Drag and drop your resume file here</p>
+              <p class="upload-hint">Supports TXT (full extraction), PDF and DOC (simulated extraction)</p>
+              <button class="btn btn-secondary btn-sm" style="margin-top:8px;" type="button">
+                Browse File
+              </button>
+              <input type="file" id="resume-file" accept=".txt,.pdf,.doc,.docx" style="display:none;" />
+            </div>
+            <p id="file-status" style="margin-top:10px; font-size:0.82rem; color:var(--text-muted);"></p>
+            <textarea id="extracted-text" style="display:none;"></textarea>
+          </div>
+
+          <!-- Job Role + Analyze -->
+          <div class="job-role-row">
+            <div class="form-group">
+              <label for="job-role">Target Job Role</label>
+              <select id="job-role">
+                <option value="">-- Select a role --</option>
+                <option value="Frontend Developer">Frontend Developer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                <option value="UI/UX Designer">UI/UX Designer</option>
+                <option value="DevOps Engineer">DevOps Engineer</option>
+                <option value="Project Manager">Project Manager</option>
+              </select>
+            </div>
+            <div class="analyze-wrapper">
+              <button class="btn btn-primary" id="analyze-btn">
+                <span id="analyze-spinner" class="spinner"></span>
+                Analyze Resume
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================== OUTPUT AREA ===================== -->
+      <div id="output-area" style="display:none;">
+
+        <!-- Quick link to quiz after analysis -->
+        <div class="section-notice"
+          style="margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <span>Interview questions have been generated from your resume.</span>
+          <a href="{{ url_for('quiz') }}" class="btn btn-primary btn-sm">Start Interview Quiz</a>
+        </div>
+
+        <h2 style="margin-bottom:20px;">Analysis Results</h2>
+
+        <!-- 1. Improved Resume -->
+        <div class="glass-card output-section" id="sec-improved">
+          <div class="output-header">
+            <div class="output-header-left">
+              <div class="output-icon">&#9998;</div>
+              <div>
+                <div class="output-title">Improved Resume</div>
+                <div class="output-subtitle">Action verb-enhanced bullet points</div>
+              </div>
+            </div>
+            <div class="collapse-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="output-body">
+            <div class="output-content" id="improved-resume-content"></div>
+            <div class="action-bar">
+              <button class="btn btn-secondary btn-sm" onclick="copyContent('improved-resume-content')">Copy</button>
+              <button class="btn btn-secondary btn-sm"
+                onclick="downloadContent('improved-resume-content','improved_resume.txt')">Download</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Suggestions -->
+        <div class="glass-card output-section" id="sec-suggestions">
+          <div class="output-header">
+            <div class="output-header-left">
+              <div class="output-icon">&#128270;</div>
+              <div>
+                <div class="output-title">Grammar and Clarity Suggestions</div>
+                <div class="output-subtitle">Rule-based writing improvements</div>
+              </div>
+            </div>
+            <div class="collapse-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="output-body">
+            <div id="suggestions-content"></div>
+          </div>
+        </div>
+
+        <!-- 3. Section Feedback -->
+        <div class="glass-card output-section" id="sec-section-feedback">
+          <div class="output-header">
+            <div class="output-header-left">
+              <div class="output-icon">&#128203;</div>
+              <div>
+                <div class="output-title">Section-Wise Feedback</div>
+                <div class="output-subtitle">Education, Experience, Skills, Projects, Summary</div>
+              </div>
+            </div>
+            <div class="collapse-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="output-body">
+            <div id="section-feedback-content"></div>
+          </div>
+        </div>
+
+        <!-- 4. Skill Gaps -->
+        <div class="glass-card output-section" id="sec-skills">
+          <div class="output-header">
+            <div class="output-header-left">
+              <div class="output-icon">&#127919;</div>
+              <div>
+                <div class="output-title">Skill Gap Analysis</div>
+                <div class="output-subtitle">Present and missing skills for your target role</div>
+              </div>
+            </div>
+            <div class="collapse-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="output-body">
+            <div class="section-notice">
+              Skills marked with a check are detected in your resume. Skills marked with an X are missing.
+            </div>
+            <div id="skill-gaps-content"></div>
+          </div>
+        </div>
+
+        <!-- 5. LinkedIn Summary -->
+        <div class="glass-card output-section" id="sec-linkedin">
+          <div class="output-header">
+            <div class="output-header-left">
+              <div class="output-icon">&#128279;</div>
+              <div>
+                <div class="output-title">LinkedIn Summary</div>
+                <div class="output-subtitle">AI-generated professional summary</div>
+              </div>
+            </div>
+            <div class="collapse-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="output-body">
+            <div class="output-content" id="linkedin-content"></div>
+            <div class="action-bar">
+              <button class="btn btn-secondary btn-sm" onclick="copyContent('linkedin-content')">Copy</button>
+              <button class="btn btn-secondary btn-sm"
+                onclick="downloadContent('linkedin-content','linkedin_summary.txt')">Download</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Interview Questions preview (full simulator at quiz.html) -->
+        <div class="glass-card output-section" id="sec-interview">
+          <div class="output-header">
+            <div class="output-header-left">
+              <div class="output-icon">&#128101;</div>
+              <div>
+                <div class="output-title">Interview Questions (Preview)</div>
+                <div class="output-subtitle">Open the full quiz simulator for an interactive experience</div>
+              </div>
+            </div>
+            <div class="collapse-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="output-body">
+            <div class="section-notice">
+              A full interactive quiz with Text-to-Speech is available. Click "Start Interview Quiz" to begin.
+            </div>
+            <div id="interview-content"></div>
+            <div class="action-bar">
+              <a href="{{ url_for('quiz') }}" class="btn btn-primary btn-sm">Start Interactive Quiz</a>
+              <button class="btn btn-secondary btn-sm" onclick="copyContent('interview-content')">Copy
+                Questions</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:20px;"></div>
+
+      </div>
+      <!-- End output-area -->
+
+    </main>
+  </div>
+  <!-- End sidebar-main -->
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

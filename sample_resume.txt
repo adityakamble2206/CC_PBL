@@ -1,0 +1,3 @@
+Aditya Kamble
+aditya@example.com
+Frontend Developer with experience in React and JavaScript.

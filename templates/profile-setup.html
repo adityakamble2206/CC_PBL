@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI Resume Analyzer - Complete your profile setup." />
+  <title>Profile Setup — AI Resume Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body class="profile-page" id="profile-setup-root">
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <div id="toast-container"></div>
+
+  <div class="profile-container">
+
+    <div class="profile-header animate-in">
+      <span class="step-badge">Step 1 of 1 — Profile Setup</span>
+      <h1>Complete your profile</h1>
+      <p style="color:var(--text-muted);margin-top:8px;font-size:0.9rem;">
+        This information personalizes your resume analysis and interview simulations.
+      </p>
+    </div>
+
+    <div class="glass-card animate-in" style="padding:32px;">
+
+      <!-- Avatar Upload -->
+      <div class="avatar-upload">
+        <div class="avatar-preview" id="avatar-preview-box">
+          <span id="avatar-placeholder" style="font-size:2.4rem; color:var(--text-muted);">&#128100;</span>
+          <img id="avatar-preview-img" src="" alt="Profile photo"
+            style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+        </div>
+        <label for="avatar-input" class="btn btn-secondary btn-sm" data-hover>Upload Photo</label>
+        <input type="file" id="avatar-input" accept="image/*" style="display:none;" />
+      </div>
+
+      <form id="profile-form" novalidate>
+
+        <div class="profile-section-title">Personal Information</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-name">Full Name</label>
+            <input type="text" id="p-name" placeholder="Jane Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="p-email">Email Address</label>
+            <input type="email" id="p-email" placeholder="" readonly />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-age">Age</label>
+            <input type="number" id="p-age" placeholder="25" min="16" max="100" />
+          </div>
+          <div class="form-group">
+            <label for="p-contact">Contact Number</label>
+            <input type="tel" id="p-contact" placeholder="+1 (555) 000-0000" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="p-address">Address</label>
+          <input type="text" id="p-address" placeholder="City, State, Country" />
+        </div>
+
+        <div class="profile-section-title">Education Details</div>
+
+        <div class="form-group">
+          <label for="p-school">School Name</label>
+          <input type="text" id="p-school" placeholder="Springfield High School" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="p-college">College / University</label>
+            <input type="text" id="p-college" placeholder="State University" />
+          </div>
+          <div class="form-group">
+            <label for="p-degree">Degree / Occupation</label>
+            <input type="text" id="p-degree" placeholder="B.Sc. Computer Science" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary" style="flex:1; min-width:160px;">
+            Save and Continue
+          </button>
+          <a href="{{ url_for('dashboard') }}" class="btn btn-secondary" style="flex:1; min-width:160px; text-align:center;">
+            Skip for Now
+          </a>
+        </div>
+
+      </form>
+    </div>
+
+    <div style="text-align:center; margin-top:20px; padding-bottom:40px;">
+      <button class="theme-toggle" id="theme-toggle">Light Mode</button>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

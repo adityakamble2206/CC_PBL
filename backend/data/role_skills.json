@@ -1,0 +1,7 @@
+{
+  "Frontend Developer": ["HTML", "CSS", "JavaScript", "React", "Vue", "Angular", "TypeScript", "Tailwind CSS", "Redux", "Figma", "Next.js"],
+  "Backend Developer": ["Python", "Node.js", "Express", "Django", "Flask", "SQL", "NoSQL", "PostgreSQL", "MongoDB", "Redis", "Docker", "Kubernetes"],
+  "Full Stack Developer": ["HTML", "CSS", "JavaScript", "React", "Node.js", "SQL", "NoSQL", "TypeScript", "Git", "Docker", "AWS"],
+  "Data Scientist": ["Python", "R", "SQL", "Pandas", "NumPy", "Scikit-Learn", "TensorFlow", "PyTorch", "Tableau", "PowerBI"],
+  "DevOps Engineer": ["Docker", "Kubernetes", "Jenkins", "AWS", "Azure", "GCP", "Terraform", "Ansible", "Linux", "Bash"]
+}
